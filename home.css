@@ -1,0 +1,254 @@
+/* Importar fontes do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Bangers&display=swap' );
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;          /* Força a altura total da janela */
+    width: 100%;
+    overflow: hidden;       /* Remove o scroll de vez */
+    background-color: #ffb667; /* Sua cor de fundo */
+    background: url(imagens/fundo-papel.jpg) no-repeat center center / cover;/* Imagem de fundo em estilo papel */
+}
+
+body {
+    display: flex;          /* Organiza o Header e o Main em coluna */
+    flex-direction: column;
+}
+
+.site-title {
+    font-family: 'Bangers', cursive;
+    font-size: 3.5em;        /* Ajustado de 5em para caber melhor na linha */
+    margin: 0;               /* REMOVE as margens padrão do h1 */
+    color: #fdfdfd;
+    text-shadow: 3px 3px 0px rgb(156, 2, 2);
+}
+
+.site-subtitle {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1em;          /* Reduzido para ser um detalhe */
+    margin: 0;               /* REMOVE as margens padrão do p */
+    color: #bb0606;
+    text-align: center;
+}
+.logo-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-item, .collage-item p {
+    font-family: 'Permanent Marker', cursive; /* Fonte manuscrita para itens de navegação e texto nos recortes */
+    color: #444;
+    margin: 0;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: center; /* Centraliza o grupo todo horizontalmente */
+    align-items: center;     /* Alinha todos os itens verticalmente no centro */
+    gap: 80px;               /* Cria um espaçamento uniforme entre os itens */
+    padding: 10px 0 0 0 ;
+    flex-wrap: wrap;         /* Garante que em telas menores os itens quebrem linha */
+}
+
+.main-nav .nav-item {
+    text-decoration: none;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: rgb(156, 2, 2);
+    font-family: 'Bangers', cursive;
+}
+
+.main-nav .nav-item::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: currentColor; /* Usa a cor do texto */
+    transform: scaleX(0);
+    transition: transform 0.3s ease-out;
+}
+
+.main-nav .nav-item:hover::after {
+    transform: scaleX(1);
+}
+
+.collage-container {
+    flex-grow: 1;           /* Ocupa todo o espaço restante da tela */
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.collage-item img {
+    width: 100%;          /* CORREÇÃO: 100% quebra o loop infinito do navegador e evita o sumiço */
+    height: auto;         /* Mantém a proporção da imagem sem achatar */
+    display: block;       /* Remove um espacinho em branco "fantasma" que o HTML deixa embaixo de imagens */
+}
+
+.collage-item {
+    position: absolute;
+    transition: transform 0.3s ease; /* Transição suave para interatividade */
+    overflow: hidden;
+}
+
+.collage-item:hover {
+    transform: scale(1.02) rotate(2deg); /* Efeito ao passar o mouse */
+    z-index: 100; /* Traz o item para frente ao interagir */
+}
+
+/* ==================== POSICIONAMENTO DESKTOP ==================== */
+.item-about {
+    top: 10%;
+    left: 20%;
+    width: 240px; /* CORREÇÃO: Adicionado largura para não colapsar */
+    transform: rotate(-5deg);
+}
+
+.item-comic {
+    top: 3%;
+    left: 45%;
+    width: 260px; /* CORREÇÃO: Adicionado largura para não colapsar */
+    transform: rotate(3deg);
+}
+
+.item-contacts {
+    top: 70%;
+    right: 40%;
+    width: 220px;
+    transform: rotate(8deg);
+    z-index: 11;
+}
+
+.item-commission-info {
+    bottom: 200px;
+    left: 25%;
+    width: 180px;
+    transform: rotate(-10deg);
+    z-index: 15;
+}
+
+.item-portfolio {
+    bottom: 140px;
+    left: 50%;
+    width: 300px;
+    transform: rotate(5deg);
+    z-index: 13;
+}
+
+.item-caderno {
+    top: 5%;
+    left: 60%;
+    width: 300px;
+    transform: rotate(5deg);
+    z-index: 13;
+}
+
+/* Base para as duas ilustrações */
+.artist-illustration { 
+    position: absolute;
+    bottom: 0;              /* Gruda no fundo da tela */
+    height: 100%;           /* Ocupa 100% da altura do espaço disponível */
+    width: auto;            /* Mantém a proporção sem achatar */
+    z-index: 1;             /* Fica atrás dos itens de colagem */
+    pointer-events: none;   /* Permite clicar nos links mesmo se a imagem estiver na frente */
+}
+
+.artist-illustration.left {
+    left: 0;           /* Cola totalmente na esquerda */
+}
+
+.artist-illustration.right {
+    right: 0;          /* Cola totalmente na direita */
+}
+
+/* ==================== DISPOSITIVOS MOBILE/TABLETS (ATÉ 768px) ==================== */
+@media (max-width: 768px) {
+    html, body {
+        height: auto !important;
+        overflow: visible !important;
+        overflow-x: hidden !important; 
+    }
+
+    .main-header {
+        flex-direction: column;
+    }
+
+    .main-nav .nav-item {
+        margin: 5px 10px;
+        font-size: 1em;
+    }
+    .main-nav  {
+        gap: 20px; 
+    }
+
+    .site-title {
+        font-size: 3em;
+    }
+
+    .site-subtitle {
+        font-size: 1.2em;
+    }
+
+    /* Grid de duas colunas para os desenhos no celular */
+    .collage-container {
+        height: auto !important;
+        overflow: visible !important;
+        padding: 20px 15px 80px 15px; 
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 12px; 
+        align-items: center; 
+    }
+
+    .collage-item {
+        position: static !important; 
+        width: 100% !important;   
+        max-width: none !important; 
+        margin: 0 !important;      
+        transform: none !important; 
+
+    }
+
+    .artist-illustration {
+        grid-column: span 2; 
+        position: relative;
+        width: 60%;
+        max-width: 220px;
+        margin: 30px auto 0 auto;
+        display: block;
+        height: auto;
+    }
+
+    .artist-illustration.right {
+        display: none; 
+    }
+}
+
+/* ==================== CELULARES PEQUENOS (ATÉ 430px) ==================== */
+@media (max-width: 430px) {
+    .main-nav  {
+        gap: 10px; 
+    }
+
+    .site-title {
+        font-size: 2.2em; 
+    }
+
+    .site-subtitle {
+        font-size: 0.9em;
+    }
+
+    .collage-container {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 8px; 
+        padding: 15px 8px 60px 8px;
+    }
+
+    .artist-illustration {
+        width: 75%;
+    }
+}
