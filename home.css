@@ -20,15 +20,15 @@ body {
     font-family: 'Bangers', cursive;
     font-size: 3.5em;        /* Ajustado de 5em para caber melhor na linha */
     margin: 0;               /* REMOVE as margens padrão do h1 */
-    color: #fdfdfd;
-    text-shadow: 3px 3px 0px rgb(156, 2, 2);
+    color: #333;
+    text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
 }
 
 .site-subtitle {
     font-family: 'Permanent Marker', cursive;
     font-size: 1em;          /* Reduzido para ser um detalhe */
     margin: 0;               /* REMOVE as margens padrão do p */
-    color: #bb0606;
+    color: #555;
     text-align: center;
 }
 .logo-group {
@@ -54,9 +54,9 @@ body {
 
 .main-nav .nav-item {
     text-decoration: none;
-    font-size: 2.5em;
+    font-size: 1.1em;
     font-weight: bold;
-    color: rgb(156, 2, 2);
+    color: #666;
     font-family: 'Bangers', cursive;
 }
 
@@ -84,11 +84,10 @@ body {
 }
 
 .collage-item img {
-    width: 100%;          /* CORREÇÃO: 100% quebra o loop infinito do navegador e evita o sumiço */
+    width: 100%;          /* Ajustado para 100% para evitar transbordamento lateral do card */
     height: auto;         /* Mantém a proporção da imagem sem achatar */
     display: block;       /* Remove um espacinho em branco "fantasma" que o HTML deixa embaixo de imagens */
 }
-
 .collage-item {
     position: absolute;
     transition: transform 0.3s ease; /* Transição suave para interatividade */
@@ -104,14 +103,14 @@ body {
 .item-about {
     top: 10%;
     left: 20%;
-    width: 240px; /* CORREÇÃO: Adicionado largura para não colapsar */
+    width: 240px;
     transform: rotate(-5deg);
 }
 
 .item-comic {
     top: 3%;
     left: 45%;
-    width: 260px; /* CORREÇÃO: Adicionado largura para não colapsar */
+    width: 260px;
     transform: rotate(3deg);
 }
 
@@ -138,7 +137,6 @@ body {
     transform: rotate(5deg);
     z-index: 13;
 }
-
 .item-caderno {
     top: 5%;
     left: 60%;
@@ -168,87 +166,136 @@ body {
 /* ==================== DISPOSITIVOS MOBILE/TABLETS (ATÉ 768px) ==================== */
 @media (max-width: 768px) {
     html, body {
-        height: auto !important;
-        overflow: visible !important;
-        overflow-x: hidden !important; 
+        height: 100vh !important;
+        overflow: hidden !important; /* Garante que NÃO haverá scroll de tela */
     }
 
     .main-header {
         flex-direction: column;
     }
 
+    .main-nav {
+        gap: 20px;
+    }
+
     .main-nav .nav-item {
         margin: 5px 10px;
-        font-size: 1em;
-    }
-    .main-nav  {
-        gap: 20px; 
-    }
-
-    .site-title {
-        font-size: 3em;
-    }
-
-    .site-subtitle {
         font-size: 1.2em;
     }
 
-    /* Grid de duas colunas para os desenhos no celular */
+    .site-title {
+        font-size: 3.5em;
+    }
+
+    .site-subtitle {
+        font-size: 2em;
+    }
+
     .collage-container {
-        height: auto !important;
-        overflow: visible !important;
-        padding: 20px 15px 80px 15px; 
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 12px; 
-        align-items: center; 
+        height: 100% !important;
+        overflow: hidden !important;
+        position: relative !important;
+        display: block !important;
     }
 
+    /* Ativa o posicionamento absoluto com prioridade alta para sobreposição */
     .collage-item {
-        position: static !important; 
-        width: 100% !important;   
-        max-width: none !important; 
-        margin: 0 !important;      
-        transform: none !important; 
-
+        position: absolute !important;
+        z-index: 10 !important; /* Mantém os itens ACIMA do personagem deitado */
     }
 
-    .artist-illustration {
-        grid-column: span 2; 
-        position: relative;
-        width: 60%;
-        max-width: 220px;
-        margin: 30px auto 0 auto;
-        display: block;
-        height: auto;
+    /* Inversão das Ilustrações: Esconde o em pé (left) e exibe o deitado (right) */
+    .artist-illustration.left {
+        display: none !important;
     }
 
     .artist-illustration.right {
-        display: none; 
+        display: block !important;
+        position: absolute !important;
+        bottom: 0 !important;
+        right: -4% !important;
+        height: 65vh !important; /* Ocupa uma parte proporcional da altura sem distorcer */
+        width: auto !important;
+        z-index: 2 !important;
+    }
+
+    /* Distribuição dos itens em pares verticais simulando a referência da Sasha */
+    .item-about {
+        top: 2%;
+        left: 5%;
+        width: 38% !important;
+        transform: rotate(-5deg) !important;
+    }
+
+    .item-comic {
+        top: 1%;
+        right: 5%;
+        left: auto !important;
+        width: 40% !important;
+        transform: rotate(4deg) !important;
+    }
+
+    .item-portfolio {
+        top: 24%;
+        left: 4%;
+        width: 42% !important;
+        transform: rotate(-3deg) !important;
+    }
+
+    .item-caderno {
+        top: 26%;
+        right: 4%;
+        left: auto !important;
+        width: 42% !important;
+        transform: rotate(5deg) !important;
+    }
+
+    .item-contacts {
+        top: 48%;
+        left: 6%;
+        right: auto !important;
+        width: 38% !important;
+        transform: rotate(6deg) !important;
+    }
+
+    .item-commission-info {
+        top: 70%;
+        left: 8%;
+        bottom: auto !important;
+        width: 36% !important;
+        transform: rotate(-6deg) !important;
     }
 }
 
 /* ==================== CELULARES PEQUENOS (ATÉ 430px) ==================== */
 @media (max-width: 430px) {
-    .main-nav  {
-        gap: 10px; 
+    .main-nav {
+        gap: 12px;
     }
 
     .site-title {
-        font-size: 2.2em; 
+        font-size: 1.8em;
     }
 
     .site-subtitle {
-        font-size: 0.9em;
+        font-size: 0.8em;
     }
 
-    .collage-container {
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 8px; 
-        padding: 15px 8px 60px 8px;
+    .main-nav .nav-item {
+        font-size: 1em;
     }
 
-    .artist-illustration {
-        width: 75%;
+    /* Reduz um pouco o tamanho da ilustração para dar mais respiro em telas muito pequenas */
+    .artist-illustration.right {
+        height: 58vh !important;
+        right: -2% !important;
     }
+
+    /* Ajuste fino nas larguras dos cards para encaixe perfeito sem scroll */
+    .item-about { width: 40% !important; top: 3%; }
+    .item-comic { width: 42% !important; top: 1%; }
+    .item-portfolio { width: 44% !important; top: 25%; }
+    .item-caderno { width: 44% !important; top: 27%; }
+    .item-contacts { width: 40% !important; top: 50%; }
+    .item-commission-info { width: 38% !important; top: 72%; }
 }
