@@ -167,7 +167,6 @@ body {
 @media (max-width: 768px) {
     html, body {
         height: 100vh !important;
-        overflow: hidden !important; /* Garante que NÃO haverá scroll de tela */
     }
 
     .main-header {
